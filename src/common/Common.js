@@ -45,6 +45,8 @@ function Common() {
           <Route path="/shop/:category" component={ProductCategoirs} />
           <Route path="/shop" component={ProductsScreen} />
           <Route path="/bag/:category" component={BagScreen} />
+          {/* <Route path="/bag/:value" component={BagScreen} /> */}
+          {/* <Route path="/bag/:product_id" component={BagScreen} /> */}
           <Route path="/bag" component={BagScreen} />
           <Route path="/shose" component={ShoseScreen} />
           <Route path="/create" component={InsertScreen} />
