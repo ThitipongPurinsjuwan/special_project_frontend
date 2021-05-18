@@ -36,12 +36,16 @@ class FormUpdatePromotion extends Component {
       promotion_date_start: this.state.promotion_date_start,
       promotion_date_end: this.state.promotion_date_end,
     };
+    console.log(data);
     this.makeReq(data, this);
     e.preventDefault();
   }
   makeReq = async (data, self) => {
     return await axios
-      .post("http://localhost:1337/insert_promotion", data)
+      .post(
+        `http://localhost:1337/update_promotion?promotion_id=${this.state.promotion_id}`,
+        data
+      )
       .then(function (res) {
         console.log(res);
         self.setState({ redirect: "/promotion" });
