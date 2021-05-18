@@ -195,7 +195,7 @@ class Comment extends Component {
                           {/* Comment Form */}
                           <form className="form" action="#">
                             <div className="row">
-                              <div className="col-lg-6 col-md-6 col-12">
+                              {/* <div className="col-lg-6 col-md-6 col-12">
                                 <div className="form-group">
                                   <label>
                                     Your Name<span>*</span>
@@ -220,7 +220,7 @@ class Comment extends Component {
                                     required="required"
                                   />
                                 </div>
-                              </div>
+                              </div> */}
                               <div className="col-12">
                                 <div className="form-group">
                                   <label>
