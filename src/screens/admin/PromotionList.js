@@ -11,7 +11,7 @@ class PromotionList extends Component {
     this.state = {
       data: [],
     };
-    this.removeProduct = this.removeProduct.bind(this);
+    this.removePromotion = this.removePromotion.bind(this);
   }
 
   componentDidMount() {
@@ -22,15 +22,15 @@ class PromotionList extends Component {
       })
       .catch((err) => console.log(err));
   }
-  handleRemove = (product) => {
-    const url = `http://localhost:1337/delete_promotion?promotion_id=${product.product_id}`;
+  handleRemove = (data) => {
+    const url = `http://localhost:1337/delete_promotion?promotion_id=${data.promotion_id}`;
     axios
       .get(url)
       .then((res) => {
         this.setState((previousState) => {
           return {
             data: previousState.data.filter(
-              (m) => m.product_id !== product.product_id
+              (m) => m.promotion_id !== data.promotion_id
             ),
           };
         });
@@ -40,8 +40,8 @@ class PromotionList extends Component {
       });
   };
 
-  removeProduct = (e, product) => {
-    this.handleRemove(product);
+  removePromotion = (e, data) => {
+    this.handleRemove(data);
   };
   render() {
     const { data } = this.state;
@@ -98,7 +98,7 @@ class PromotionList extends Component {
                           </p>
                         </td>
                         <td className="price" data-title="Price">
-                          <span>{data.promotion_date_start} </span>
+                          <span>{data.promotion_date_start}</span>
                         </td>
                         <td className="total-amount" data-title="Total">
                           <span>{data.promotion_date_end}</span>
@@ -119,7 +119,7 @@ class PromotionList extends Component {
                                   "Are you sure you wish to delete this item?"
                                 )
                               ) {
-                                this.removeProduct(this, data);
+                                this.removePromotion(this, data);
                               }
                             }}
                           >

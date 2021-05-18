@@ -11,7 +11,7 @@ function BagScreen() {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [temp, setTemp] = useState([]);
-  const [value, setValue] = React.useState([0, 100]);
+  const [value, setValue] = React.useState([0, 1000]);
   let param = useParams();
   // console.log("value=>"+value);
   let categoryId = -1;

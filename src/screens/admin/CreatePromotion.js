@@ -5,55 +5,72 @@ import Footer from "../../components/otherPage/Footer";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 class CreatePromotion extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      price: "",
-      quantity: "",
-      path: "",
-      selectCategory: "0",
-      selectPromotion: "0",
+      sales_percentage: "",
+      promotion_date_start: new Date(),
+      promotion_date_end: new Date(),
       redirect: null,
     };
 
     this.handleOnSabmit = this.handleOnSabmit.bind(this);
     this.onChangeName = this.handleChange.bind(this, "name");
-    this.onChangePrice = this.handleChange.bind(this, "price");
-    this.onChangeQuantity = this.handleChange.bind(this, "quantity");
-    this.onChangePath = this.handleChange.bind(this, "path");
-    this.onChangeCategory = this.handleChange.bind(this, "selectCategory");
-    this.onChangePromotion = this.handleChange.bind(this, "selectPromotion");
+    this.onChangeSales_percentage = this.handleChange.bind(
+      this,
+      "sales_percentage"
+    );
+    this.onChangePromotion_date_start = this.handleChange.bind(
+      this,
+      "promotion_date_start"
+    );
+    this.onChangePromotion_date_end = this.handleChange.bind(
+      this,
+      "promotion_date_end"
+    );
   }
   handleChange(keyName, e) {
     this.setState({ [keyName]: e.target.value });
   }
   handleOnSabmit(e) {
     let data = {
-      nameProduct: this.state.name,
-      categoryProduct: this.state.selectCategory,
-      promotionProduct: this.state.selectPromotion,
-      price: this.state.price,
-      quantity: this.state.quantity,
-      pathPicture: this.state.path,
+      promotion_name: this.state.name,
+      sales_percentage: this.state.sales_percentage,
+      promotion_date_start: this.state.promotion_date_start,
+      promotion_date_end: this.state.promotion_date_end,
     };
     this.makeReq(data, this);
     e.preventDefault();
   }
   makeReq = async (data, self) => {
     return await axios
-      .post("http://localhost:1337/insert_product", data)
+      .post("http://localhost:1337/insert_promotion", data)
       .then(function (res) {
         console.log(res);
-        self.setState({ redirect: "/listsProduct" });
+        self.setState({ redirect: "/promotion" });
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  checkDateStart = (date) => {
+    if (date <= this.state.promotion_date_end) {
+      this.setState({ promotion_date_start: date });
+    }
+  };
+  checkDateEnd = (date) => {
+    if (date >= this.state.promotion_date_start) {
+      this.setState({ promotion_date_end: date });
+    }
+  };
   render() {
-    const { selectCategory, selectPromotion, name, price, path, quantity } =
+    const { name, sales_percentage, promotion_date_start, promotion_date_end } =
       this.state;
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -88,79 +105,41 @@ class CreatePromotion extends Component {
                       <div className="col-6">
                         <div className="form-group">
                           <label>
-                            Category<span>*</span>
-                          </label>
-                          <select
-                            value={selectCategory}
-                            name="categoryProduct"
-                            onChange={this.onChangeCategory}
-                          >
-                            <option value="0" hidden>
-                              choose...
-                            </option>
-                            <option value="5">Wallet Bags</option>
-                            <option value="6">Hand Bags</option>
-                            <option value="7">Shoulder Bags</option>
-                            <option value="8">Luggage Bags</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-6">
-                        <div className="form-group">
-                          <label>
-                            Promotion<span>*</span>
-                          </label>
-                          <select
-                            value={selectPromotion}
-                            name="promotionProduct"
-                            onChange={this.onChangePromotion}
-                          >
-                            <option value="0" hidden>
-                              choose...
-                            </option>
-                            <option value="1">Discount all items 5%</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-6">
-                        <div className="form-group">
-                          <label>
-                            Price<span>*</span>
+                            Sales<span>*</span>
                           </label>
                           <input
                             type="number"
-                            value={price}
-                            onChange={this.onChangePrice}
+                            value={sales_percentage}
+                            onChange={this.onChangeSales_percentage}
                             placeholder
                             required="required"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-6"></div>
+                      <div className="col-6">
+                        <div className="form-group">
+                          <label>
+                            Date Start<span>*</span>
+                          </label>
+                          <DatePicker
+                            selected={promotion_date_start}
+                            onChange={(date) => {
+                              this.checkDateStart(date);
+                            }}
                           />
                         </div>
                       </div>
                       <div className="col-6">
                         <div className="form-group">
                           <label>
-                            Quantity<span>*</span>
+                            Date End<span>*</span>
                           </label>
-                          <input
-                            type="number"
-                            value={quantity}
-                            onChange={this.onChangeQuantity}
-                            placeholder
-                            required="required"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="form-group">
-                          <label>
-                            Path Picture<span>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            value={path}
-                            onChange={this.onChangePath}
-                            placeholder
-                            required="required"
+                          <DatePicker
+                            selected={promotion_date_end}
+                            onChange={(date) => {
+                              this.checkDateEnd(date);
+                            }}
                           />
                         </div>
                       </div>
