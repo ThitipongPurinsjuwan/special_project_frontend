@@ -12,21 +12,23 @@ function BagScreen() {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [temp, setTemp] = useState([]);
+  const [sortt, setSort] = useState([2]);
   const [value, setValue] =  React.useState([0,300]);
   const {token} = useToken();
-  // console.log("token=>" + token.user_id);
-  // console.log("product=>"+data.product_id);
   let param = useParams();
  
   let categoryId = -1;
   let rangpricemin = parseInt(value[0]);
   let rangpricemax = parseInt(value[1]);
-  
 
-  // let user_id = parseInt(token.user_id);
+
   if (param.category) {
     categoryId = parseInt(param.category);
   }
+
+  function sortPrice(e){
+    setSort({sortt:parseInt(e.target.value)});
+   }
 
   useEffect(() => {
     axios
@@ -49,6 +51,8 @@ function BagScreen() {
       .catch((err) => console.log(err));
   }
  
+
+
   const likeSubmit = async (like) =>{
     return await axios
     .post(`http://localhost:1337/shop_like`,like)
@@ -78,54 +82,15 @@ function BagScreen() {
               <div className="row">
                 <div className="col-12">
                   <div className="shop-top">
-                    <div className="shop-shorter">
-                      <div className="single-shorter">
-                        <label>Show :</label>
-                        <select style={{ display: "none" }}>
-                          <option selected="selected">09</option>
-                          <option>15</option>
-                          <option>25</option>
-                          <option>30</option>
-                        </select>
-                        <div className="nice-select" tabIndex={0}>
-                          <span className="current">09</span>
-                          <ul className="list">
-                            <li data-value={9} className="option selected">
-                              09
-                            </li>
-                            <li data-value={15} className="option">
-                              15
-                            </li>
-                            <li data-value={25} className="option">
-                              25
-                            </li>
-                            <li data-value={30} className="option">
-                              30
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
+                    <div className="shop-shorter">  
                       <div className="single-shorter">
                         <label>Sort By :</label>
-                        <select style={{ display: "none" }}>
-                          <option selected="selected">Name</option>
-                          <option>Price</option>
-                          <option>Size</option>
+                        <select className="nice-select" onChange={(e)=>{sortPrice(e)}}>
+                        {/* <select className="nice-select"> */}
+                          <option value="1" >lowest to highest</option>
+                          <option value="2" selected>highest to lowest </option>
                         </select>
-                        <div className="nice-select" tabIndex={0}>
-                          <span className="current">Name</span>
-                          <ul className="list">
-                            <li data-value="Name" className="option selected">
-                              Name
-                            </li>
-                            <li data-value="Price" className="option">
-                              Price
-                            </li>
-                            <li data-value="Size" className="option">
-                              Size
-                            </li>
-                          </ul>
-                        </div>
+                       
                       </div>
                     </div>
                     <ul className="view-mode">
@@ -152,6 +117,7 @@ function BagScreen() {
                       parseInt(data.product_price) >= rangpricemin &&
                       parseInt(data.product_price) <= rangpricemax
                   )
+                  .sort(sortt.sortt == 1 ? ((a, b) => a.product_price > b.product_price ? 1 : -1 ): ((a, b) => a.product_price < b.product_price ? 1 : -1 ))
                   .map((data, index) => (
                     <BoxProduct likeSubmit={likeSubmit} data={data}/>
                   ))}

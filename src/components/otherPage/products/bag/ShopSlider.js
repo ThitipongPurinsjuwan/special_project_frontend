@@ -15,7 +15,6 @@ function ShopSlider(props) {
   // Changing State when volume increases/decreases
   const rangeSelector = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue)
   };
   return (
     <>
