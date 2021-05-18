@@ -5,6 +5,7 @@ import Footer from "../../components/otherPage/Footer";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
+
 class CreateProduct extends Component {
   constructor(props) {
     super(props);

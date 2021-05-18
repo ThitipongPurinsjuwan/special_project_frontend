@@ -27,9 +27,7 @@ export default class OrderList extends Component {
   }
 
   checkDateStart = (date) => {
-    if (date <= this.state.in_order_date) {
       this.setState({ in_order_date: date });
-    }
   };
   render() {
     const { data } = this.state;
@@ -74,7 +72,12 @@ export default class OrderList extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((data, index) => (
+                    {data
+                    .filter(
+                    (data) => new Date(data.in_order_date).toDateString() == new Date(in_order_date).toDateString() || new Date(in_order_date).toDateString() == new Date().toDateString()
+                    )
+                    .sort(((a, b) => a.in_order_date < b.in_order_date ? 1 : -1 ))
+                    .map((data, index) => (
                       <tr key={index}>
                         <td className="product-des" data-title="Description">
                           <p className="product-name">{index + 1}</p>

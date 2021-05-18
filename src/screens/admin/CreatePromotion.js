@@ -114,7 +114,7 @@ class CreatePromotion extends Component {
                           <label>
                             Date Start<span>*</span>
                           </label>
-                          <DatePicker
+                          <DatePicker 
                             selected={promotion_date_start}
                             onChange={(date) => {
                               this.checkDateStart(date);
@@ -123,11 +123,11 @@ class CreatePromotion extends Component {
                         </div>
                       </div>
                       <div className="col-6">
-                        <div className="form-group">
+                        <div className="form-group ">
                           <label>
                             Date End<span>*</span>
                           </label>
-                          <DatePicker
+                          <DatePicker 
                             selected={promotion_date_end}
                             onChange={(date) => {
                               this.checkDateEnd(date);
