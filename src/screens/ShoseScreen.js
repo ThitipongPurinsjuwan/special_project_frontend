@@ -31,7 +31,7 @@ function ShoseScreen() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/product?category_id=1")
+      .get("http://localhost:1337/product?category_id=2")
       .then((results) => {
         setTemp(results.data.results);
         setData(results.data.results);
@@ -43,7 +43,7 @@ function ShoseScreen() {
 
   async function getCategories() {
     await axios
-      .get("http://localhost:1337/categories_shose")
+      .get("http://localhost:1337/categories_shoes")
       .then((results) => {
         setCategory(results.data.results);
       })

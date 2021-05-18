@@ -18,7 +18,7 @@ function ShopSlider(props) {
           <h3 className="title">Categories</h3>
           <ul className="categor-list">
             <li>
-              <Link to="/shoes">All</Link>
+              <Link to="/shose">All</Link>
             </li>
             {category.map((data) => (
               <li key={data.category_id}>
