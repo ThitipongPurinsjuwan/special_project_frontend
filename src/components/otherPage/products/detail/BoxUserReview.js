@@ -7,7 +7,9 @@ function BoxUserReview(props) {
       {/* Single Rating */}
       <div className="single-rating">
         <div className="rating-des">
-          <h6>Advin Geri</h6>
+          <h6>
+            {data.user_firstname} {data.user_lastname}
+          </h6>
           <div className="ratings">
             <ul className="rating">
               <li>
@@ -30,10 +32,7 @@ function BoxUserReview(props) {
               (<span>5.0</span>)
             </div>
           </div>
-          <p>
-            Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat
-            cursus. Aliquam pellentesque nulla dolor, in imperdiet.
-          </p>
+          <p>{data.text_review}</p>
         </div>
       </div>
       {/*/ End Single Rating */}

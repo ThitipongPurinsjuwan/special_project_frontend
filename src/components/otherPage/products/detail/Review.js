@@ -13,6 +13,7 @@ class Review extends Component {
       user_id: this.token,
       text_review: "",
       redirect: null,
+      product_review: [],
     };
 
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
@@ -44,8 +45,19 @@ class Review extends Component {
         console.log(error);
       });
   };
+  componentDidMount() {
+    axios
+      .get(
+        `http://localhost:1337/product_review?product_id=${this.state.product_id}`
+      )
+      .then((results) => {
+        console.log(results.data.results);
+        this.setState({ product_review: results.data.results });
+      })
+      .catch((err) => console.log(err));
+  }
   render() {
-    const { product_id, user_id, text_review } = this.state;
+    const { product_id, user_id, text_review, product_review } = this.state;
 
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -143,11 +155,9 @@ class Review extends Component {
                             </h4>
                             <span>Based on 1 Comments</span>
                           </div>
-                          <BoxUserReview />
-                          <BoxUserReview />
-                          <BoxUserReview />
-                          <BoxUserReview />
-                          <BoxUserReview />
+                          {product_review.map((data) => (
+                            <BoxUserReview data={data} />
+                          ))}
                         </div>
                         {/* Review */}
                         <div className="comment-review">
