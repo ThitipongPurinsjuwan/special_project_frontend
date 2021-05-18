@@ -58,6 +58,13 @@ class ListsProduct extends Component {
           <div className="container">
             <div className="row">
               <div className="col-12">
+                <div className="form-group login-btn">
+                  <Link to="/createProduct" className="btn btn-create-in-list">
+                    Create Product
+                  </Link>
+                </div>
+              </div>
+              <div className="col-12">
                 <table className="table shopping-summery">
                   <thead>
                     <tr className="main-hading">

@@ -64,22 +64,22 @@ function Header() {
   };
   const AdminMenu = () => (
     <li>
-      <Link to="/shop">Admin</Link>
+      <Link to="#">Admin</Link>
       <ul className="dropdown">
         {/* <li>
           <Link to="/create">User & Employee</Link>
         </li> */}
-        <li>
+        {/* <li>
           <Link to="/createProduct">Create Product</Link>
-        </li>
+        </li> */}
         <li>
-          <Link to="/listsProduct">Lists Product</Link>
+          <Link to="/listsProduct">Product</Link>
         </li>
         {/* <li>
           <Link to="/detail">Products</Link>
         </li> */}
         <li>
-          <Link to="/detail">Promotion</Link>
+          <Link to="/promotion">Promotion</Link>
         </li>
         <li>
           <Link to="/orderlists">Orders list</Link>

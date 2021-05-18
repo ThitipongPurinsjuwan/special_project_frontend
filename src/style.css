@@ -40,6 +40,11 @@ Version:1.0
   height: 280px !important;
   width: 260px !important;
 }
+.btn-create-in-list {
+  float: left;
+  margin: 10px 5px;
+  color: white !important;
+}
 /* custom */
 .status-success {
   background-color: #1ebd50;

@@ -14,8 +14,10 @@ import ProductDetailScreen from "../screens/ProductDetailScreen";
 import ProductsScreen from "../screens/ProductsScreen";
 import InsertScreen from "../screens/InsertScreen";
 import CreateProduct from "../screens/admin/CreateProduct";
+import CreatePromotion from "../screens/admin/CreatePromotion";
 import ListsProduct from "../screens/admin/ListsProduct";
 import OrderList from "../screens/admin/OrderList";
+import PromotionList from "../screens/admin/PromotionList";
 import FormUpdateProduct from "../screens/admin/FormUpdateProduct";
 import UpdateProfile from "../screens/users/UpdateProfile";
 import RegisterScreen from "../screens/RegisterScreen";
@@ -45,8 +47,6 @@ function Common() {
           <Route path="/shop/:category" component={ProductCategoirs} />
           <Route path="/shop" component={ProductsScreen} />
           <Route path="/bag/:category" component={BagScreen} />
-          {/* <Route path="/bag/:value" component={BagScreen} /> */}
-          {/* <Route path="/bag/:product_id" component={BagScreen} /> */}
           <Route path="/bag" component={BagScreen} />
           <Route path="/shoes/:category" component={ShoseScreen} />
           <Route path="/shose" component={ShoseScreen} />
@@ -55,6 +55,8 @@ function Common() {
           <Route path="/updateProduct" component={FormUpdateProduct} />
           <Route path="/listsProduct" component={ListsProduct} />
           <Route path="/orderlists" component={OrderList} />
+          <Route path="/createPromotion" component={CreatePromotion} />
+          <Route path="/promotion" component={PromotionList} />
           <Route path="/Home" component={HomeScreen} />
           <Route
             exact

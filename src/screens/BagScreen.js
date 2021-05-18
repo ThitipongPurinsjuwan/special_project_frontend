@@ -11,17 +11,17 @@ function BagScreen() {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [temp, setTemp] = useState([]);
-  const [value, setValue] =  React.useState([0,100]);
+  const [value, setValue] = React.useState([0, 100]);
   let param = useParams();
   // console.log("value=>"+value);
   let categoryId = -1;
   let rangpricemin = parseInt(value[0]);
   let rangpricemax = parseInt(value[1]);
 
-
   if (param.category) {
     categoryId = parseInt(param.category);
   }
+
   useEffect(() => {
     axios
       .get("http://localhost:1337/product?category_id=1")
@@ -51,7 +51,11 @@ function BagScreen() {
         <div className="container">
           <div className="row">
             <div className="col-lg-3 col-md-4 col-12">
-              <ShopSlider setValue = {setValue} category={category} value = {value} />
+              <ShopSlider
+                setValue={setValue}
+                category={category}
+                value={value}
+              />
             </div>
             <div className="col-lg-9 col-md-8 col-12">
               <div className="row">
@@ -124,11 +128,13 @@ function BagScreen() {
               </div>
               <div className="row">
                 {data
-               
+
                   .filter(
                     (data) =>
-                      (data.product_category === categoryId || categoryId === -1) &&
-                     ( parseInt(data.product_price) >= rangpricemin && parseInt(data.product_price) <= rangpricemax)
+                      (data.product_category === categoryId ||
+                        categoryId === -1) &&
+                      parseInt(data.product_price) >= rangpricemin &&
+                      parseInt(data.product_price) <= rangpricemax
                   )
                   .map((data, index) => (
                     <BoxProduct data={data} />
