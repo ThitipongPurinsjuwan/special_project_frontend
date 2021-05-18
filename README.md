@@ -1,1 +1,3 @@
 # SBShop
+
+version 1
