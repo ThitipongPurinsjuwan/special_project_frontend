@@ -25,14 +25,6 @@ class CreatePromotion extends Component {
       this,
       "sales_percentage"
     );
-    this.onChangePromotion_date_start = this.handleChange.bind(
-      this,
-      "promotion_date_start"
-    );
-    this.onChangePromotion_date_end = this.handleChange.bind(
-      this,
-      "promotion_date_end"
-    );
   }
   handleChange(keyName, e) {
     this.setState({ [keyName]: e.target.value });

@@ -105,7 +105,7 @@ class PromotionList extends Component {
                         </td>
                         <td className="action" data-title="Remove">
                           <Link
-                            to={`/updateProduct?product_id=${data.product_id}`}
+                            to={`/updatePromotion?promotion_id=${data.promotion_id}`}
                           >
                             <i className="ti-pencil-alt remove-icon" />
                           </Link>
