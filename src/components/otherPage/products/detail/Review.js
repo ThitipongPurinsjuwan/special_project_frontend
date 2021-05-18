@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { Redirect } from "react-router-dom";
-// import Token from "../../../token";
-
+import React from "react";
+import { Link } from "react-router-dom";
+import BoxUserReview from "./BoxUserReview";
+import axios from 'axios'
 class Review extends Component {
   constructor(props) {
     super(props);
@@ -136,85 +135,52 @@ class Review extends Component {
                   </div>
                 </div>
 
-                <div className="tab-pane fade" id="reviews" role="tabpanel">
-                  <div className="tab-single review-panel">
-                    <div className="row">
-                      <div className="col-12">
-                        <div className="ratting-main">
-                          <div className="avg-ratting">
-                            <h4>
-                              4.5 <span>(Overall)</span>
-                            </h4>
-                            <span>Based on 1 Comments</span>
-                          </div>
-                          {/* Single Rating */}
-                          <div className="single-rating">
-                            <div className="rating-author">
-                              <img src="images/comments1.jpg" alt="#" />
-                            </div>
-                            <div className="rating-des">
-                              <h6>Naimur Rahman</h6>
-                              <div className="ratings">
-                                <ul className="rating">
-                                  <li>
-                                    <i className="fa fa-star" />
-                                  </li>
-                                  <li>
-                                    <i className="fa fa-star" />
-                                  </li>
-                                  <li>
-                                    <i className="fa fa-star" />
-                                  </li>
-                                  <li>
-                                    <i className="fa fa-star-half-o" />
-                                  </li>
-                                  <li>
-                                    <i className="fa fa-star-o" />
-                                  </li>
-                                </ul>
-                                <div className="rate-count">
-                                  (<span>3.5</span>)
-                                </div>
-                              </div>
-                              <p>
-                                Duis tincidunt mauris ac aliquet congue. Donec
-                                vestibulum consequat cursus. Aliquam
-                                pellentesque nulla dolor, in imperdiet.
-                              </p>
-                            </div>
-                          </div>
-                          {/*/ End Single Rating */}
+              <div className="tab-pane fade" id="reviews" role="tabpanel">
+                <div className="tab-single review-panel">
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="ratting-main">
+                        <div className="avg-ratting">
+                          <h4>
+                            4.5 <span>(Overall)</span>
+                          </h4>
+                          <span>Based on 1 Comments</span>
                         </div>
-                        {/* Review */}
-                        <div className="comment-review">
-                          <div className="add-review">
-                            <h5>Add A Review</h5>
-                            <p>
-                              Your email address will not be published. Required
-                              fields are marked
-                            </p>
-                          </div>
-                          <h4>Your Rating</h4>
-                          <div className="review-inner">
-                            <div className="ratings">
-                              <ul className="rating">
-                                <li>
-                                  <i className="fa fa-star" />
-                                </li>
-                                <li>
-                                  <i className="fa fa-star" />
-                                </li>
-                                <li>
-                                  <i className="fa fa-star" />
-                                </li>
-                                <li>
-                                  <i className="fa fa-star" />
-                                </li>
-                                <li>
-                                  <i className="fa fa-star" />
-                                </li>
-                              </ul>
-                            </div>
+                        <BoxUserReview />
+                        <BoxUserReview />
+                        <BoxUserReview />
+                        <BoxUserReview />
+                        <BoxUserReview />
+                      </div>
+                      {/* Review */}
+                      <div className="comment-review">
+                        <div className="add-review">
+                          <h5>Add A Review</h5>
+                          <p>
+                            Your email address will not be published. Required
+                            fields are marked
+                          </p>
+                        </div>
+                        <h4>Your Rating</h4>
+                        <div className="review-inner">
+                          <div className="ratings">
+                            <ul className="rating">
+                              <li>
+                                <i className="fa fa-star" />
+                              </li>
+                              <li>
+                                <i className="fa fa-star" />
+                              </li>
+                              <li>
+                                <i className="fa fa-star" />
+                              </li>
+                              <li>
+                                <i className="fa fa-star" />
+                              </li>
+                              <li>
+                                <i className="fa fa-star" />
+                              </li>
+                            </ul>
                           </div>
                         </div>
                         {/*/ End Review */}
