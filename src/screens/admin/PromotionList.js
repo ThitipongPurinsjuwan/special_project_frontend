@@ -69,9 +69,7 @@ class PromotionList extends Component {
                       <th></th>
                       <th>Promotion Name</th>
                       <th>Sales</th>
-                      <th className="text-center" style={{ width: "80px" }}>
-                        Promotion Start
-                      </th>
+                      <th className="text-center">Promotion Start</th>
                       <th className="text-center">Promotion End</th>
                       <th className="text-center">
                         <i className="ti-pencil-alt remove-icon" />
@@ -97,11 +95,15 @@ class PromotionList extends Component {
                             {data.sales_percentage}
                           </p>
                         </td>
-                        <td className="price" data-title="Price">
-                          <span>{data.promotion_date_start}</span>
+                        <td className="total-amount" data-title="Total">
+                          <span>
+                            {new Date(data.promotion_date_start).toDateString()}
+                          </span>
                         </td>
                         <td className="total-amount" data-title="Total">
-                          <span>{data.promotion_date_end}</span>
+                          <span>
+                            {new Date(data.promotion_date_end).toDateString()}
+                          </span>
                         </td>
                         <td className="action" data-title="Remove">
                           <Link

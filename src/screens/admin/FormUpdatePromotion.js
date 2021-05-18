@@ -13,8 +13,8 @@ class FormUpdatePromotion extends Component {
     this.state = {
       name: "",
       sales_percentage: "",
-      promotion_date_start: "",
-      promotion_date_end: "",
+      promotion_date_start: new Date(),
+      promotion_date_end: new Date(),
       redirect: null,
       promotion_id: new URLSearchParams(search).get("promotion_id"),
     };
@@ -70,33 +70,9 @@ class FormUpdatePromotion extends Component {
         this.setState({
           name: res.data.results[0].promotion_name,
           sales_percentage: res.data.results[0].sales_percentage,
-          promotion_date_start: new Date(
-            res.data.results[0].promotion_date_start
-          ).toLocaleDateString(),
+          promotion_date_start: res.data.results[0].promotion_date_start,
           promotion_date_end: res.data.results[0].promotion_date_end,
         });
-        console.log(res);
-        console.log(
-          new Date(res.data.results[0].promotion_date_start).toISOString()
-        );
-        console.log(
-          new Date(res.data.results[0].promotion_date_start).toDateString()
-        );
-        console.log(
-          new Date(
-            res.data.results[0].promotion_date_start
-          ).toLocaleDateString()
-        );
-        console.log(
-          new Date(res.data.results[0].promotion_date_start).toUTCString()
-        );
-        console.log("before");
-        console.log(this.state.promotion_date_start);
-        this.state.promotion_date_start = new Date(
-          res.data.results[0].promotion_date_start
-        ).toLocaleDateString();
-        console.log("after");
-        console.log(this.state.promotion_date_start);
       })
       .catch((err) => console.log(err));
   }
@@ -154,7 +130,7 @@ class FormUpdatePromotion extends Component {
                             Date Start<span>*</span>
                           </label>
                           <DatePicker
-                            selected={promotion_date_start}
+                            selected={Date.parse(promotion_date_start)}
                             onChange={(date) => {
                               this.checkDateStart(date);
                             }}
@@ -167,7 +143,7 @@ class FormUpdatePromotion extends Component {
                             Date End<span>*</span>
                           </label>
                           <DatePicker
-                            selected={promotion_date_end}
+                            selected={Date.parse(promotion_date_end)}
                             onChange={(date) => {
                               this.checkDateEnd(date);
                             }}
