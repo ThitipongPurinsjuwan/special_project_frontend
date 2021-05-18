@@ -1,12 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useToken from "../../../token";
+
 
 function BoxProduct(props) {
+  // const { token, removeToken } = useToken();
   const { data } = props;
+  const {likeSubmit} = props;
+  // const {like} = props;
+  // console.log("product=>" + data.product_id);
+  // console.log("user=>"+data.user_id);
+  const { token } = useToken();
+  // console.log("token=>" + token.user_id);
   var formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   });
+ 
+  var like = {
+    user_id : token.user_id,
+    product_id : data.product_id
+  }
+
   return (
     <>
       <div className="col-lg-4 col-md-6 col-12">
@@ -27,7 +42,8 @@ function BoxProduct(props) {
                   <i className=" ti-eye" />
                   <span>Quick Shop</span>
                 </Link>
-                <Link title="Wishlist" to="#">
+                {/* <Link title="Wishlist" to={likeSubmit(like)}> */}
+                <Link title="Wishlist" to="#" onClick={() => likeSubmit(like)}>
                   <i className=" ti-heart " />
                   <span>Add to Wishlist</span>
                 </Link>

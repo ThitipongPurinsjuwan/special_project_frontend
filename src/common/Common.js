@@ -28,6 +28,9 @@ import ShoseScreen from "../screens/ShoseScreen";
 import ProductCategoirs from "../screens/ProductCategoirs";
 import NotFound from "../screens/NotFound";
 import useToken from "../components/token";
+import LikeProduct from "../screens/users/LikeProduct";
+
+
 import "../App.css";
 import "../style.css";
 
@@ -60,6 +63,8 @@ function Common() {
           <Route path="/updatePromotion" component={FormUpdatePromotion} />
           <Route path="/promotion" component={PromotionList} />
           <Route path="/Home" component={HomeScreen} />
+          <Route path="/LikeProduct" component={LikeProduct} />
+
           <Route
             exact
             path="/"

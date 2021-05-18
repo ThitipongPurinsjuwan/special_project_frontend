@@ -202,7 +202,7 @@ function Header() {
                 <div className="right-bar">
                   {/* Search Form */}
                   <div className="sinlge-bar">
-                    <a href="#" className="single-icon">
+                    <a href="/LikeProduct" className="single-icon">
                       <i className="fa fa-heart-o" aria-hidden="true" />
                     </a>
                   </div>

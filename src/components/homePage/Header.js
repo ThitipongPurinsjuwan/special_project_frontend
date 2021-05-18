@@ -318,7 +318,7 @@ class Header extends Component {
                                     <Link to="/bag">Bag</Link>
                                   </li>
                                   <li>
-                                    <Link to="/shose=">Shoes</Link>
+                                    <Link to="/shose">Shoes</Link>
                                   </li>
                                 </ul>
                               </li>

@@ -1,78 +1,57 @@
 import React, { Component, useEffect, useState } from "react";
-import Header from "../components/otherPage/Header";
-import Breadcrumbs from "../components/otherPage/Breadcrumbs";
-import Footer from "../components/otherPage/Footer";
-import ShopSlider from "../components/otherPage/products/bag/ShopSlider";
-import BoxProduct from "../components/otherPage/products/bag/BoxProduct";
-import axios from "axios";
+import Header from "../../components/otherPage/Header";
+import Breadcrumbs from "../../components/otherPage/Breadcrumbs";
+import Footer from "../../components/otherPage/Footer";
+import ShopSlider from "../../components/otherPage/products/bag/ShopSlider";
+import BoxProduct from "../../components/otherPage/products/bag/BoxProduct";
 import { Link, useParams } from "react-router-dom";
-import useToken from "../components/token/index";
+import useToken from "../../components/token";
+import axios from "axios";
 
-function BagScreen() {
+  
+function LikeProduct() {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
+  const [product, setProduct] = useState([]);
   const [temp, setTemp] = useState([]);
   const [value, setValue] =  React.useState([0,300]);
   const {token} = useToken();
-  // console.log("token=>" + token.user_id);
-  // console.log("product=>"+data.product_id);
+  console.log(token.user_id);
   let param = useParams();
- 
   let categoryId = -1;
   let rangpricemin = parseInt(value[0]);
   let rangpricemax = parseInt(value[1]);
-  
-
-  // let user_id = parseInt(token.user_id);
   if (param.category) {
     categoryId = parseInt(param.category);
   }
-
   useEffect(() => {
     axios
-      .get("http://localhost:1337/product?category_id=1")
+      .get( `http://localhost:1337/like_product?user_id=${token.user_id}`)
       .then((results) => {
         setTemp(results.data.results);
         setData(results.data.results);
       })
       .catch((err) => console.log(err));
 
-    getCategories();
+      getProduct();
   }, []);
-
-  async function getCategories() {
+  async function getProduct() {
     await axios
       .get("http://localhost:1337/categories_bag")
       .then((results) => {
-        setCategory(results.data.results);
+        setProduct(results.data.results);
       })
       .catch((err) => console.log(err));
   }
- 
-  const likeSubmit = async (like) =>{
-    return await axios
-    .post(`http://localhost:1337/shop_like`,like)
-      .then(function (res) {
-        console.log(res);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
   return (
     <>
-      <Header />
+       <Header />
       <Breadcrumbs to={"Bag"} />
       <section className="product-area shop-sidebar shop section">
         <div className="container">
           <div className="row">
             <div className="col-lg-3 col-md-4 col-12">
-              <ShopSlider
-                setValue={setValue}
-                category={category}
-                value={value}
-              />
+              <ShopSlider setValue = {setValue} category={category} value = {value} product = {product}/>
             </div>
             <div className="col-lg-9 col-md-8 col-12">
               <div className="row">
@@ -147,13 +126,11 @@ function BagScreen() {
                 {data
                   .filter(
                     (data) =>
-                      (data.product_category === categoryId ||
-                        categoryId === -1) &&
-                      parseInt(data.product_price) >= rangpricemin &&
-                      parseInt(data.product_price) <= rangpricemax
+                      (data.product_category === categoryId || categoryId === -1) &&
+                     ( parseInt(data.product_price) >= rangpricemin && parseInt(data.product_price) <= rangpricemax)
                   )
                   .map((data, index) => (
-                    <BoxProduct likeSubmit={likeSubmit} data={data}/>
+                    <BoxProduct data={data}/>
                   ))}
               </div>
             </div>
@@ -165,4 +142,4 @@ function BagScreen() {
   );
 }
 
-export default BagScreen;
+export default LikeProduct;
