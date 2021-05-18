@@ -4,10 +4,11 @@ import Breadcrumbs from "../components/otherPage/Breadcrumbs";
 import Review from "../components/otherPage/products/detail/Review";
 import Rating from "../components/otherPage/products/detail/Rating";
 import Footer from "../components/otherPage/Footer";
-import useToken from "../components/token";
 import axios from "axios";
 import { withRouter } from "react-router";
 import { Link, useParams } from "react-router-dom";
+import useToken from "../components/token";
+
 function ProductDetailScreen(props) {
   const { token } = useToken();
   const param = useParams();
@@ -230,7 +231,7 @@ function ProductDetailScreen(props) {
                   </div>
                 </div>
               </div>
-              <Review />
+              <Review data={state.product_id} token={token.user_id} />
             </div>
           </div>
         </div>
