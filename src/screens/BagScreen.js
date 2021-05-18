@@ -8,7 +8,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import useToken from "../components/token/index";
 
-function BagScreen() {
+function BagScreen(props) {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [temp, setTemp] = useState([]);
@@ -16,6 +16,12 @@ function BagScreen() {
   const [value, setValue] = React.useState([0, 300]);
   const { token } = useToken();
   let param = useParams();
+  const search = props.location.search;
+  let pathName = "all";
+  if (search) {
+    pathName = new URLSearchParams(search).get("product");
+    console.log(new URLSearchParams(search).get("product"));
+  }
 
   let categoryId = -1;
   let rangpricemin = parseInt(value[0]);
@@ -63,7 +69,7 @@ function BagScreen() {
 
   return (
     <>
-      <Header />
+      <Header search={pathName} />
       <Breadcrumbs to={"Bag"} />
       <section className="product-area shop-sidebar shop section">
         <div className="container">
@@ -115,10 +121,14 @@ function BagScreen() {
                 {data
                   .filter(
                     (data) =>
-                      (data.product_category === categoryId ||
+                      ((data.product_category === categoryId ||
                         categoryId === -1) &&
-                      parseInt(data.product_price) >= rangpricemin &&
-                      parseInt(data.product_price) <= rangpricemax
+                        parseInt(data.product_price) >= rangpricemin &&
+                        parseInt(data.product_price) <= rangpricemax &&
+                        (data.product_name.toLowerCase() ===
+                          pathName.toLowerCase() ||
+                          pathName === "all")) ||
+                      data.product_name.includes(pathName)
                   )
                   .sort(
                     sortt.sortt == 1

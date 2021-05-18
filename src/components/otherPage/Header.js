@@ -4,12 +4,16 @@ import useToken from "../token";
 import ShopItem from "./cart/ShopItem";
 import axios from "axios";
 
-function Header() {
+function Header(props) {
   const location = useLocation();
   const { token, removeToken } = useToken();
   const [data, setData] = useState([]);
   const [total, setTotal] = useState();
-
+  const pathName = window.location.pathname;
+  let searchName = "";
+  if (props.search) {
+    searchName = props.search;
+  }
   useEffect(() => {
     var api_usrl;
     if (token) {
@@ -177,26 +181,24 @@ function Header() {
                 <div className="mobile-nav" />
               </div>
               <div className="col-lg-8 col-md-7 col-12">
-                <div className="search-bar-top">
-                  <div className="search-bar">
-                    <select>
-                      <option selected="selected">All Category</option>
-                      <option>watch</option>
-                      <option>mobile</option>
-                      <option>kid’s item</option>
-                    </select>
-                    <form>
-                      <input
-                        name="search"
-                        placeholder="Search Products Here....."
-                        type="search"
-                      />
-                      <button className="btnn">
-                        <i className="ti-search" />
-                      </button>
-                    </form>
+                {pathName === "/bag" ? (
+                  <div className="search-bar-top">
+                    <div className="search-bar">
+                      <form>
+                        <input
+                          name="product"
+                          placeholder="Search Products Name Here....."
+                          type="search"
+                        />
+                        <button className="btnn">
+                          <i className="ti-search" />
+                        </button>
+                      </form>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="col-lg-2 col-md-3 col-12">
                 <div className="right-bar">
@@ -273,18 +275,6 @@ function Header() {
                                 </li>
                                 <li>
                                   <Link to="/shose">Shoes</Link>
-                                </li>
-                              </ul>
-                            </li>
-
-                            <li>
-                              <a href="#">
-                                Blog
-                                <i className="ti-angle-down" />
-                              </a>
-                              <ul className="dropdown">
-                                <li>
-                                  <Link to="/review">Review</Link>
                                 </li>
                               </ul>
                             </li>

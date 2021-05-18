@@ -132,7 +132,6 @@ class Review extends Component {
                     </div>
                   </div>
                 </div>
-
                 <div className="tab-pane fade" id="reviews" role="tabpanel">
                   <div className="tab-single review-panel">
                     <div className="row">
@@ -189,32 +188,6 @@ class Review extends Component {
                             onSubmit={this.handleOnSubmit}
                           >
                             <div className="row">
-                              {/* <div className="col-lg-6 col-12">
-                              <div className="form-group">
-                                <label>
-                                  Your Name<span>*</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="name"
-                                  required="required"
-                                  placeholder
-                                />
-                              </div>
-                            </div>
-                            <div className="col-lg-6 col-12">
-                              <div className="form-group">
-                                <label>
-                                  Your Email<span>*</span>
-                                </label>
-                                <input
-                                  type="email"
-                                  name="email"
-                                  required="required"
-                                  placeholder
-                                />
-                              </div>
-                            </div> */}
                               <div className="col-lg-12 col-12">
                                 <div className="form-group">
                                   <label>
@@ -236,7 +209,7 @@ class Review extends Component {
                                     className="btn"
                                     alue="Submit"
                                   >
-                                    Submit
+                                    Send
                                   </button>
                                 </div>
                               </div>
