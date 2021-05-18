@@ -17,8 +17,7 @@ function ProductDetailScreen(props) {
     quantity: 0,
     quantityInstock: 0,
     path: "",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque facilis magni, saepe aspernatur aliquid maxime quo nesciunt libero illo consequuntur ipsa nam ab, harum aperiam est quod, suscipit adipisci ex quae dicta aut? Sit, saepe. Sed laudantium expedita odit quas modi quam temporibus aut, officiis a consequuntur illum maxime in cupiditate ipsam, minus ad nulla pariatur tempora molestias magnam perferendis. Non consequatur quo labore! Earum omnis debitis, accusamus similique quos vitae officia ipsum error in. Ullam non beatae soluta nam.",
+    description: "",
     product_id: param.product_id,
   });
 
@@ -31,6 +30,7 @@ function ProductDetailScreen(props) {
           name: res.data.results[0].product_name,
           price: res.data.results[0].product_price,
           path: res.data.results[0].product_img,
+          description: res.data.results[0].description,
           quantityInstock: res.data.results[0].product_quantity,
         });
       })
