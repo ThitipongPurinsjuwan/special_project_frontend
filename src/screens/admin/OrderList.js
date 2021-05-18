@@ -5,13 +5,16 @@ import Breadcrumbs from "../../components/otherPage/Breadcrumbs";
 import ServiceArea from "../../components/otherPage/cart/ServiceArea";
 import Newslater from "../../components/otherPage/cart/Newslater";
 import Footer from "../../components/otherPage/Footer";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class OrderList extends Component {
   constructor() {
     super();
     this.state = {
       data: [],
+      in_order_date: new Date(),
     };
   }
   componentDidMount() {
@@ -22,8 +25,18 @@ export default class OrderList extends Component {
       })
       .catch((err) => console.log(err));
   }
+
+  checkDateStart = (date) => {
+    if (date <= this.state.in_order_date) {
+      this.setState({ in_order_date: date });
+    }
+  };
   render() {
     const { data } = this.state;
+    const { in_order_date } = this.state;
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     return (
       <>
         <Header />
@@ -31,6 +44,20 @@ export default class OrderList extends Component {
         <div className="shopping-cart section">
           <div className="container">
             <div className="row">
+              <div className="col-6">
+                <div className="form-group">
+                  <label>
+                    Date <span>*</span>
+                  </label>
+                  <DatePicker
+                    selected={in_order_date}
+                    onChange={(date) => {
+                      this.checkDateStart(date);
+                    }}
+                  />
+                </div>
+              </div>
+
               <div className="col-12">
                 <table className="table shopping-summery">
                   <thead>
@@ -42,6 +69,7 @@ export default class OrderList extends Component {
                         TOTAL
                       </th>
                       <th className="text-center">QUANTITY</th>
+                      <th className="text-center">ORDER DATE</th>
                       <th className="text-center">STATUS</th>
                     </tr>
                   </thead>
@@ -66,6 +94,11 @@ export default class OrderList extends Component {
                         </td>
                         <td className="total-amount" data-title="Total">
                           <span>{data.in_order_quantity}</span>
+                        </td>
+                        <td className="total-amount" data-title="Total">
+                          <span>
+                            {new Date(data.in_order_date).toDateString()}
+                          </span>
                         </td>
                         <td className="action" data-title="Remove">
                           <span
