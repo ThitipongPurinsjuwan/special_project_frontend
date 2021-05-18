@@ -6,19 +6,32 @@ import ShopSlider from "../components/otherPage/products/shoes/ShopSlider";
 import BoxProduct from "../components/otherPage/products/shoes/BoxProduct";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import useToken from "../components/token/index";
 
 function ShoseScreen() {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [temp, setTemp] = useState([]);
+  const [sortt, setSort] = useState([2]);
+  const [value, setValue] = React.useState([0, 300]);
+  const { token } = useToken();
   let param = useParams();
+
   let categoryId = -1;
+  let rangpricemin = parseInt(value[0]);
+  let rangpricemax = parseInt(value[1]);
+
   if (param.category) {
     categoryId = parseInt(param.category);
   }
+
+  function sortPrice(e) {
+    setSort({ sortt: parseInt(e.target.value) });
+  }
+
   useEffect(() => {
     axios
-      .get("http://localhost:1337/product?category_id=2")
+      .get("http://localhost:1337/product?category_id=1")
       .then((results) => {
         setTemp(results.data.results);
         setData(results.data.results);
@@ -30,13 +43,22 @@ function ShoseScreen() {
 
   async function getCategories() {
     await axios
-      .get("http://localhost:1337/categories_shoes")
+      .get("http://localhost:1337/categories_shose")
       .then((results) => {
         setCategory(results.data.results);
       })
       .catch((err) => console.log(err));
   }
-
+  const likeSubmit = async (like) => {
+    return await axios
+      .post(`http://localhost:1337/shop_like`, like)
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   return (
     <>
       <Header />
@@ -45,7 +67,11 @@ function ShoseScreen() {
         <div className="container">
           <div className="row">
             <div className="col-lg-3 col-md-4 col-12">
-              <ShopSlider category={category} />
+              <ShopSlider
+                setValue={setValue}
+                category={category}
+                value={value}
+              />
             </div>
             <div className="col-lg-9 col-md-8 col-12">
               <div className="row">
@@ -53,52 +79,19 @@ function ShoseScreen() {
                   <div className="shop-top">
                     <div className="shop-shorter">
                       <div className="single-shorter">
-                        <label>Show :</label>
-                        <select style={{ display: "none" }}>
-                          <option selected="selected">09</option>
-                          <option>15</option>
-                          <option>25</option>
-                          <option>30</option>
-                        </select>
-                        <div className="nice-select" tabIndex={0}>
-                          <span className="current">09</span>
-                          <ul className="list">
-                            <li data-value={9} className="option selected">
-                              09
-                            </li>
-                            <li data-value={15} className="option">
-                              15
-                            </li>
-                            <li data-value={25} className="option">
-                              25
-                            </li>
-                            <li data-value={30} className="option">
-                              30
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="single-shorter">
                         <label>Sort By :</label>
-                        <select style={{ display: "none" }}>
-                          <option selected="selected">Name</option>
-                          <option>Price</option>
-                          <option>Size</option>
+                        <select
+                          className="nice-select"
+                          onChange={(e) => {
+                            sortPrice(e);
+                          }}
+                        >
+                          {/* <select className="nice-select"> */}
+                          <option value="1">lowest to highest</option>
+                          <option value="2" selected>
+                            highest to lowest{" "}
+                          </option>
                         </select>
-                        <div className="nice-select" tabIndex={0}>
-                          <span className="current">Name</span>
-                          <ul className="list">
-                            <li data-value="Name" className="option selected">
-                              Name
-                            </li>
-                            <li data-value="Price" className="option">
-                              Price
-                            </li>
-                            <li data-value="Size" className="option">
-                              Size
-                            </li>
-                          </ul>
-                        </div>
                       </div>
                     </div>
                     <ul className="view-mode">
@@ -120,10 +113,18 @@ function ShoseScreen() {
                 {data
                   .filter(
                     (data) =>
-                      data.product_category === categoryId || categoryId === -1
+                      (data.product_category === categoryId ||
+                        categoryId === -1) &&
+                      parseInt(data.product_price) >= rangpricemin &&
+                      parseInt(data.product_price) <= rangpricemax
+                  )
+                  .sort(
+                    sortt.sortt == 1
+                      ? (a, b) => (a.product_price > b.product_price ? 1 : -1)
+                      : (a, b) => (a.product_price < b.product_price ? 1 : -1)
                   )
                   .map((data, index) => (
-                    <BoxProduct data={data} />
+                    <BoxProduct likeSubmit={likeSubmit} data={data} />
                   ))}
               </div>
             </div>

@@ -1,8 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
 
 function ShopSlider(props) {
   const { category } = props;
+  const { setValue } = props;
+  const { value } = props;
+
+  const rangeSelector = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <>
       <div className="shop-sidebar">
@@ -26,57 +34,32 @@ function ShopSlider(props) {
           <div className="price-filter">
             <div className="price-filter-inner">
               <div
-                id="slider-range"
-                className="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+                style={{
+                  margin: "auto",
+                  display: "block",
+                  width: "fit-content",
+                }}
               >
-                <div
-                  className="ui-slider-range ui-widget-header ui-corner-all"
-                  style={{ width: "26%", left: "24%" }}
-                />
-                <span
-                  className="ui-slider-handle ui-state-default ui-corner-all"
-                  tabIndex={0}
-                  style={{ left: "24%" }}
-                />
-                <span
-                  className="ui-slider-handle ui-state-default ui-corner-all"
-                  tabIndex={0}
-                  style={{ left: "50%" }}
+                <Typography id="range-slider" gutterBottom>
+                  Select Price Range:
+                </Typography>
+                <Slider
+                  min={0}
+                  max={1000}
+                  value={value}
+                  onChange={rangeSelector}
+                  valueLabelDisplay="auto"
                 />
               </div>
               <div className="price_slider_amount">
                 <div className="label-input">
-                  <span>Range:</span>
-                  <input
-                    type="text"
-                    id="amount"
-                    name="price"
-                    placeholder="Add Your Price"
-                  />
+                  <span>
+                    Range: {value[0]} - {value[1]}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-          <ul className="check-box-list">
-            <li>
-              <label className="checkbox-inline" htmlFor={1}>
-                <input name="news" id={1} type="checkbox" />
-                $20 - $50<span className="count">(3)</span>
-              </label>
-            </li>
-            <li>
-              <label className="checkbox-inline" htmlFor={2}>
-                <input name="news" id={2} type="checkbox" />
-                $50 - $100<span className="count">(5)</span>
-              </label>
-            </li>
-            <li>
-              <label className="checkbox-inline" htmlFor={3}>
-                <input name="news" id={3} type="checkbox" />
-                $100 - $250<span className="count">(8)</span>
-              </label>
-            </li>
-          </ul>
         </div>
 
         <div className="single-widget recent-post">

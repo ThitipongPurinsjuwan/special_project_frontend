@@ -13,22 +13,21 @@ function BagScreen() {
   const [category, setCategory] = useState([]);
   const [temp, setTemp] = useState([]);
   const [sortt, setSort] = useState([2]);
-  const [value, setValue] =  React.useState([0,300]);
-  const {token} = useToken();
+  const [value, setValue] = React.useState([0, 300]);
+  const { token } = useToken();
   let param = useParams();
- 
+
   let categoryId = -1;
   let rangpricemin = parseInt(value[0]);
   let rangpricemax = parseInt(value[1]);
-
 
   if (param.category) {
     categoryId = parseInt(param.category);
   }
 
-  function sortPrice(e){
-    setSort({sortt:parseInt(e.target.value)});
-   }
+  function sortPrice(e) {
+    setSort({ sortt: parseInt(e.target.value) });
+  }
 
   useEffect(() => {
     axios
@@ -50,12 +49,10 @@ function BagScreen() {
       })
       .catch((err) => console.log(err));
   }
- 
 
-
-  const likeSubmit = async (like) =>{
+  const likeSubmit = async (like) => {
     return await axios
-    .post(`http://localhost:1337/shop_like`,like)
+      .post(`http://localhost:1337/shop_like`, like)
       .then(function (res) {
         console.log(res);
       })
@@ -82,15 +79,21 @@ function BagScreen() {
               <div className="row">
                 <div className="col-12">
                   <div className="shop-top">
-                    <div className="shop-shorter">  
+                    <div className="shop-shorter">
                       <div className="single-shorter">
                         <label>Sort By :</label>
-                        <select className="nice-select" onChange={(e)=>{sortPrice(e)}}>
-                        {/* <select className="nice-select"> */}
-                          <option value="1" >lowest to highest</option>
-                          <option value="2" selected>highest to lowest </option>
+                        <select
+                          className="nice-select"
+                          onChange={(e) => {
+                            sortPrice(e);
+                          }}
+                        >
+                          {/* <select className="nice-select"> */}
+                          <option value="1">lowest to highest</option>
+                          <option value="2" selected>
+                            highest to lowest{" "}
+                          </option>
                         </select>
-                       
                       </div>
                     </div>
                     <ul className="view-mode">
@@ -117,9 +120,13 @@ function BagScreen() {
                       parseInt(data.product_price) >= rangpricemin &&
                       parseInt(data.product_price) <= rangpricemax
                   )
-                  .sort(sortt.sortt == 1 ? ((a, b) => a.product_price > b.product_price ? 1 : -1 ): ((a, b) => a.product_price < b.product_price ? 1 : -1 ))
+                  .sort(
+                    sortt.sortt == 1
+                      ? (a, b) => (a.product_price > b.product_price ? 1 : -1)
+                      : (a, b) => (a.product_price < b.product_price ? 1 : -1)
+                  )
                   .map((data, index) => (
-                    <BoxProduct likeSubmit={likeSubmit} data={data}/>
+                    <BoxProduct likeSubmit={likeSubmit} data={data} />
                   ))}
               </div>
             </div>
