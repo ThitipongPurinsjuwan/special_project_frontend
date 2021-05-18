@@ -1,13 +1,13 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import BoxUserReview from "./BoxUserReview";
-import axios from 'axios'
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 class Review extends Component {
   constructor(props) {
     super(props);
     this.data = props.data;
     this.token = props.token;
-    // console.log("data" + { data });
     this.state = {
       product_id: this.data,
       user_id: this.token,
@@ -16,8 +16,6 @@ class Review extends Component {
     };
 
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
-    // this.onChangeProductId = this.handleChange.bind(this, "product_id");
-    // this.onChangeUserId = this.handleChange.bind(this, "user_id");
     this.onChangeReview = this.handleChange.bind(this, "text_review");
   }
 
@@ -135,63 +133,63 @@ class Review extends Component {
                   </div>
                 </div>
 
-              <div className="tab-pane fade" id="reviews" role="tabpanel">
-                <div className="tab-single review-panel">
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="ratting-main">
-                        <div className="avg-ratting">
-                          <h4>
-                            4.5 <span>(Overall)</span>
-                          </h4>
-                          <span>Based on 1 Comments</span>
-                        </div>
-                        <BoxUserReview />
-                        <BoxUserReview />
-                        <BoxUserReview />
-                        <BoxUserReview />
-                        <BoxUserReview />
-                      </div>
-                      {/* Review */}
-                      <div className="comment-review">
-                        <div className="add-review">
-                          <h5>Add A Review</h5>
-                          <p>
-                            Your email address will not be published. Required
-                            fields are marked
-                          </p>
-                        </div>
-                        <h4>Your Rating</h4>
-                        <div className="review-inner">
-                          <div className="ratings">
-                            <ul className="rating">
-                              <li>
-                                <i className="fa fa-star" />
-                              </li>
-                              <li>
-                                <i className="fa fa-star" />
-                              </li>
-                              <li>
-                                <i className="fa fa-star" />
-                              </li>
-                              <li>
-                                <i className="fa fa-star" />
-                              </li>
-                              <li>
-                                <i className="fa fa-star" />
-                              </li>
-                            </ul>
+                <div className="tab-pane fade" id="reviews" role="tabpanel">
+                  <div className="tab-single review-panel">
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="ratting-main">
+                          <div className="avg-ratting">
+                            <h4>
+                              4.5 <span>(Overall)</span>
+                            </h4>
+                            <span>Based on 1 Comments</span>
                           </div>
+                          <BoxUserReview />
+                          <BoxUserReview />
+                          <BoxUserReview />
+                          <BoxUserReview />
+                          <BoxUserReview />
                         </div>
-                        {/*/ End Review */}
-                        {/* Form */}
-                        <form
-                          className="form"
-                          method="post"
-                          onSubmit={this.handleOnSubmit}
-                        >
-                          <div className="row">
-                            {/* <div className="col-lg-6 col-12">
+                        {/* Review */}
+                        <div className="comment-review">
+                          <div className="add-review">
+                            <h5>Add A Review</h5>
+                            <p>
+                              Your email address will not be published. Required
+                              fields are marked
+                            </p>
+                          </div>
+                          <h4>Your Rating</h4>
+                          <div className="review-inner">
+                            <div className="ratings">
+                              <ul className="rating">
+                                <li>
+                                  <i className="fa fa-star" />
+                                </li>
+                                <li>
+                                  <i className="fa fa-star" />
+                                </li>
+                                <li>
+                                  <i className="fa fa-star" />
+                                </li>
+                                <li>
+                                  <i className="fa fa-star" />
+                                </li>
+                                <li>
+                                  <i className="fa fa-star" />
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          {/*/ End Review */}
+                          {/* Form */}
+                          <form
+                            className="form"
+                            method="post"
+                            onSubmit={this.handleOnSubmit}
+                          >
+                            <div className="row">
+                              {/* <div className="col-lg-6 col-12">
                               <div className="form-group">
                                 <label>
                                   Your Name<span>*</span>
@@ -217,39 +215,40 @@ class Review extends Component {
                                 />
                               </div>
                             </div> */}
-                            <div className="col-lg-12 col-12">
-                              <div className="form-group">
-                                <label>
-                                  Write a review<span>*</span>
-                                </label>
-                                <textarea
-                                  name="text"
-                                  value={text_review}
-                                  onChange={this.onChangeReview}
-                                  placeholder
-                                  defaultValue={""}
-                                />
+                              <div className="col-lg-12 col-12">
+                                <div className="form-group">
+                                  <label>
+                                    Write a review<span>*</span>
+                                  </label>
+                                  <textarea
+                                    name="text"
+                                    value={text_review}
+                                    onChange={this.onChangeReview}
+                                    placeholder
+                                    defaultValue={""}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-lg-12 col-12">
+                                <div className="form-group button5">
+                                  <button
+                                    type="submit"
+                                    className="btn"
+                                    alue="Submit"
+                                  >
+                                    Submit
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                            <div className="col-lg-12 col-12">
-                              <div className="form-group button5">
-                                <button
-                                  type="submit"
-                                  className="btn"
-                                  alue="Submit"
-                                >
-                                  Submit
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                        {/*/ End Form */}
+                          </form>
+                          {/*/ End Form */}
+                        </div>
                       </div>
                     </div>
                   </div>
+                  {/*/ End Reviews Tab */}
                 </div>
-                {/*/ End Reviews Tab */}
               </div>
             </div>
           </div>
